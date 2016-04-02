@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -70,10 +70,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
+                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
     }
 

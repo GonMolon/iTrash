@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Layout for weather forecast list item for future day (not today) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +7,8 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
     android:padding="3dp"
-    android:longClickable="true">
+    android:longClickable="true"
+    android:clickable="true">
 
     <FrameLayout
         android:layout_width="60dp"
@@ -27,7 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="7"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:longClickable="true"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/name"
@@ -61,13 +63,17 @@
         android:cropToPadding="false"
         android:padding="1dp"
         android:layout_marginRight="15dp"
-        android:background="@mipmap/discard" />
+        android:background="@mipmap/discard"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         android:checked="false"
-        android:paddingRight="20dp" />
+        android:paddingRight="20dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
 </LinearLayout>

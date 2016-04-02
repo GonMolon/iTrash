@@ -61,8 +61,11 @@ public class FireBase {
                         name = postpost.getValue(String.class);
                         map.put(k,name);
                     }
-
-                    p = new Product(new Integer(map.get("ean")),map.get("time"),map.get("ean"),map.get("smallImageURL"),map.get("smallImageURL"));
+                    //EDITAR ID----------------------------------------------
+                    if(!map.containsKey("smallImageURL")){
+                        map.put("smallImageURL","http://clickefectivo.com/wp-content/uploads/2015/12/Cortana-1200-80-700x394-240x240.jpg");
+                    }
+                    p = new Product(1,map.get("time"),map.get("ean"),map.get("smallImageURL"),"500");
                     myList.add(p);
                     map.clear();
 
