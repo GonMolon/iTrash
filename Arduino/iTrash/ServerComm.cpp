@@ -63,6 +63,5 @@ void ServerComm::setup(char* server) {
 
 bool ServerComm::sendId(const char* id) {
   sprintf(pageName, "/iTrash/%s", id);
-  Serial.println("asdas");
   return postPage(serverName, serverPort, pageName, "");
 }
