@@ -8,12 +8,13 @@ ServerComm serverComm;
 
 void setup() {
   scanner.setup();
+  serverComm.setup();
 }
 
 void loop() {
   if(scanner.refresh()) {
-    byte post_result = serverComm.post(result);
-    if(post_result == 1) {
+    bool post_result = serverComm.sendId(scanner.get_barcode());
+    if(post_result) {
       Serial.println("Sent");
     } else {
       Serial.println("Fail");

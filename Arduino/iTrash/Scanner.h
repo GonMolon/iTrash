@@ -2,10 +2,10 @@
 
 class Scanner {
 private:
-    int result;
+    char barcode[50];
 public:
     Scanner();
     void setup();
     bool refresh();
-    int get_result() const;
+    const char* get_barcode() const;
 };
