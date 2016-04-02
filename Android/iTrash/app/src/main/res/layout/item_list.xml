@@ -7,8 +7,7 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
     android:padding="3dp"
-    android:longClickable="true"
-    android:clickable="true">
+    android:descendantFocusability="blocksDescendants">
 
     <FrameLayout
         android:layout_width="60dp"
@@ -63,17 +62,13 @@
         android:cropToPadding="false"
         android:padding="1dp"
         android:layout_marginRight="15dp"
-        android:background="@mipmap/discard"
-        android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:background="@mipmap/discard"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         android:checked="false"
-        android:paddingRight="20dp"
-        android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:paddingRight="20dp" />
 
 </LinearLayout>
