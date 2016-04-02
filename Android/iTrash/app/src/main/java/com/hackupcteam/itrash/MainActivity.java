@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         lista1.setAdapter(adapter);
 
-
-
     }
 
     @Override
