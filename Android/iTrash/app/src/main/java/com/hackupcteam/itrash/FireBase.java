@@ -45,19 +45,19 @@ public class FireBase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String,String> map = new HashMap<String, String>();
-                System.out.println("There are " + dataSnapshot.getChildrenCount() + " blog posts");
+                //System.out.println("There are " + dataSnapshot.getChildrenCount() + " blog posts");
                 Product p;
                 myList.clear();
                 int id = -1;
                 String name = "CACA";
-                String marca;
-                String link;
-                String precio;
+                //String marca;
+                //String link;
+                //String precio;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     for(DataSnapshot postpost : postSnapshot.getChildren()){
                         String k = postpost.getKey();
-                        System.out.print(k+"\n");
+                        //System.out.print(k+"\n");
                         name = postpost.getValue(String.class);
                         map.put(k,name);
                     }
@@ -65,14 +65,17 @@ public class FireBase {
                     if(!map.containsKey("smallImageURL")){
                         map.put("smallImageURL","http://clickefectivo.com/wp-content/uploads/2015/12/Cortana-1200-80-700x394-240x240.jpg");
                     }
-                    p = new Product(1,map.get("time"),map.get("ean"),map.get("smallImageURL"),"500");
+                    if(!map.containsKey("time")){
+                        map.put("time","999999999999999999999999999");
+                    }
+                    p = new Product(1,map.get("name"),map.get("ean"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
                 }
 
                 listView.setAdapter(adapter);
-                System.out.print(dataSnapshot.toString()+"\n");
+                //System.out.print(dataSnapshot.toString()+"\n");
             }
 
             @Override
