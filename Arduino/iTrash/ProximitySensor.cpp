@@ -9,12 +9,12 @@ ProximitySensor::ProximitySensor(int trigger_pin, int echo_pin) {
 
 long ProximitySensor::read() const {
     long duration, distance;
-    digitalWrite(TRIGGER, LOW);
+    digitalWrite(trigger_pin, LOW);
     delayMicroseconds(2);
-    digitalWrite(TRIGGER, HIGH);
+    digitalWrite(trigger_pin, HIGH);
     delayMicroseconds(10);
-    digitalWrite(TRIGGER, LOW);
-    duration = pulseIn(ECHO, HIGH);
+    digitalWrite(trigger_pin, LOW);
+    duration = pulseIn(echo_pin, HIGH);
     distance = (duration/2) / 29.1;
     if(distance >= 200 || distance <= 0){
         Serial.println("Out of range");
