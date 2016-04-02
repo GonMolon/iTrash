@@ -33,7 +33,7 @@ void setup() {
 
 void loop() {
   if(scanner.refresh()) {
-    bool post_result = serverComm.sendId("");
+    bool post_result = serverComm.sendId("1");
     if(post_result) {
       Serial.println("Sent");
     } else {
