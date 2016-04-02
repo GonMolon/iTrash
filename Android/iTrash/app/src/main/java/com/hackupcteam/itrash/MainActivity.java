@@ -13,9 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -29,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> myList;
 
+    public ArrayList<Product> ProductsAdded;
+    private Button btn;
+    private ListView lista1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +44,35 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        btn = (Button) findViewById(R.id.btnadd);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
+            }
+        });
+
         myList = new ArrayList<Product>();
+
+
 
 
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
         FireBase fb = new FireBase(this, myList);
-        ListView lista1 = (ListView) findViewById(R.id.miLista);
+        lista1 = (ListView) findViewById(R.id.miLista);
         fb.realTimeText(adapter, lista1);
 
         lista1.setAdapter(adapter);
+
+        lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
+                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

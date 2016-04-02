@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +40,14 @@ public class MyAdapter extends ArrayAdapter<Product> {
         marca.setText(single_item.getMarca());
         precio.setText(single_item.getPrecio());
         String link = single_item.getLink();
+
+        /*ImageButton m = (ImageButton)item.findViewById(R.id.imageButton);
+        m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.print("HOLA QUE TAL");
+            }
+        });*/
 
         new ImageDownloader(img).execute(link);
 
