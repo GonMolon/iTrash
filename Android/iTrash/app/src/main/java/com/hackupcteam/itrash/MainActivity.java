@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 t1.setText((String)dataSnapshot.getValue());
+                //hola que tal
             }
 
             @Override
