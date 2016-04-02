@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         myList = new ArrayList<Product>();
+        ProductsAdded = new ArrayList<>();
 
 
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
-                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
+                
             }
         });
 
