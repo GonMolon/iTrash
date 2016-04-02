@@ -8,12 +8,12 @@
 
 #define MIN_DIST 16
 #define TRASH_LEVEL_2 20
-#define TRASH_LEVEL_3 5
+#define TRASH_LEVEL_3 10
 
 Scanner scanner;
 ServerComm serverComm;
-ProximitySensor prox_cerc(13, 12);
-ProximitySensor prox_trash(11, 10);
+ProximitySensor prox_cerc(26, 27);
+ProximitySensor prox_trash(13, 12);
 DoorControl door;
 
 bool trash_open = false;
@@ -21,7 +21,7 @@ bool trash_open = false;
 void setup() {
   Serial.begin(9600);
   scanner.setup();
-  serverComm.setup("http://192.168.77.92:8080/iTrash/");
+  serverComm.setup();
   door.close();
   for(int i = 0; i < 3; ++i) {
       pinMode(32+i*6, OUTPUT);
@@ -33,7 +33,7 @@ void setup() {
 
 void loop() {
   if(scanner.refresh()) {
-    bool post_result = serverComm.sendId("1");
+    bool post_result = serverComm.sendId(scanner.get_barcode());
     if(post_result) {
       Serial.println("Sent");
     } else {
