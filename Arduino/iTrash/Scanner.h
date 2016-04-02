@@ -3,6 +3,7 @@
 class Scanner {
 private:
     char barcode[50];
+    void convert_result(int result);
 public:
     Scanner();
     void setup();

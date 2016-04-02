@@ -16,14 +16,17 @@ class ServerComm {
     
   public:
 
-    //Initiates a communication with the server correspondent to url
-    ServerComm(char* server, char* page);
+    ServerComm();
 
     //Make post request with data postData. Returns 1 on succes.
     bool post(char* postData);
 
     //Close connection
     void close();
+    
+    void setup(char* url);
+    
+    bool sendId(const char* id);
 };
 
 #endif

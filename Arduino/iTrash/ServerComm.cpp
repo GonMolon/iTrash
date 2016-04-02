@@ -10,11 +10,7 @@ void copyStr(char* from, char* to) {
   to[i] = '\0';
 }
 
-ServerComm::ServerComm(char* server, char* page) {
-  copyStr(server, serverName);
-  copyStr(page, pageName);
-  Ethernet.begin(MAC);
-  delay(1000);
+ServerComm::ServerComm() {
 }
 
 bool ServerComm::post(char* postData) {
@@ -25,32 +21,30 @@ void ServerComm::close() {
   Serial.println("This does nothing, actually");
 }
 
-//http://playground.arduino.cc/Code/WebClient
-byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* thisData)
-{
-  int inChar;
+byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* thisData) {
   char outBuf[64];
 
   Serial.print(F("connecting..."));
 
-  if(client.connect(domainBuffer,thisPort) == 1)
-  {
+  if(client.connect(domainBuffer, thisPort) == 1) {
     Serial.println(F("connected"));
 
     // send the header
     sprintf(outBuf,"POST %s HTTP/1.1",page);
     client.println(outBuf);
+    Serial.println(outBuf);
     sprintf(outBuf,"Host: %s",domainBuffer);
     client.println(outBuf);
+    Serial.println(outBuf);
     client.println(F("Connection: close\r\nContent-Type: application/x-www-form-urlencoded"));
     sprintf(outBuf,"Content-Length: %u\r\n",strlen(thisData));
     client.println(outBuf);
+    Serial.println(outBuf);
 
     // send the body (variables)
     client.print(thisData);
   }
-  else
-  {
+  else {
     Serial.println(F("failed"));
     return 0;
   }
@@ -59,4 +53,16 @@ byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* th
   Serial.println(F("disconnecting."));
   client.stop();
   return 1;
+}
+
+void ServerComm::setup(char* server) {
+  Ethernet.begin(MAC);
+  delay(1000);
+  copyStr(server, serverName);
+}
+
+bool ServerComm::sendId(const char* id) {
+  sprintf(pageName, "/iTrash/%s", id);
+  Serial.println("asdas");
+  return postPage(serverName, serverPort, pageName, "");
 }

@@ -8,7 +8,7 @@ ServerComm serverComm;
 
 void setup() {
   scanner.setup();
-  serverComm.setup();
+  serverComm.setup("www.google.com");
 }
 
 void loop() {
