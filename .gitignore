@@ -1,0 +1,5 @@
+Server/var/cache/**
+Server/vendor/**
+
+Server/var/cache/*
+Server/vendor/*

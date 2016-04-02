@@ -21,17 +21,12 @@ void ServerComm::close() {
   Serial.println("This does nothing, actually");
 }
 
-//http://playground.arduino.cc/Code/WebClient
-//Example page: "/iTrash/12322332"
-byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* thisData)
-{
-  int inChar;
+byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* thisData) {
   char outBuf[64];
 
   Serial.print(F("connecting..."));
 
-  if(client.connect(domainBuffer,thisPort) == 1)
-  {
+  if(client.connect(domainBuffer, thisPort) == 1) {
     Serial.println(F("connected"));
 
     // send the header
@@ -49,8 +44,7 @@ byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* th
     // send the body (variables)
     client.print(thisData);
   }
-  else
-  {
+  else {
     Serial.println(F("failed"));
     return 0;
   }
@@ -67,7 +61,7 @@ void ServerComm::setup(char* server) {
   copyStr(server, serverName);
 }
 
-byte ServerComm::sendId(char* id) {
+bool ServerComm::sendId(const char* id) {
   sprintf(pageName, "/iTrash/%s", id);
   Serial.println("asdas");
   return postPage(serverName, serverPort, pageName, "");

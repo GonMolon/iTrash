@@ -1,5 +1,5 @@
-#ifndef SERVER_COMM_
-#define SERVER_COMM_
+#ifndef SERVER_COMM
+#define SERVER_COMM
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -26,7 +26,7 @@ class ServerComm {
     
     void setup(char* url);
     
-    byte sendId(char* id);
+    bool sendId(const char* id);
 };
 
 #endif
