@@ -62,7 +62,7 @@ public class FireBase {
                         map.put(k,name);
                     }
 
-                    p = new Product(new Integer(map.get("ean")),map.get("time"),map.get("ean"),map.get("smallImageURL"),map.get("smallImageURL"));
+                    p = new Product(new Integer(map.get("ean")),map.get("time"),map.get("ean"),map.get("smallImageURL"),"500");
                     myList.add(p);
                     map.clear();
 
