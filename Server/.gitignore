@@ -1,2 +1,2 @@
-server/var/cache
-server/vendor
+var/cache/
+vendor/
