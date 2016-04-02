@@ -11,7 +11,7 @@ class ServerComm {
     char serverName[64];
     char pageName[64];
     int serverPort = 8080;
-    IPAddress serverIP(192, 168, 77, 92);
+    IPAddress serverIP = IPAddress(192, 168, 77, 92);
     EthernetClient client;
     byte postPage(char* domainBuffer,int thisPort,char* page,char* thisData);
     
