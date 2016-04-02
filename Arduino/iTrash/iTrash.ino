@@ -21,7 +21,7 @@ bool trash_open = false;
 void setup() {
   Serial.begin(9600);
   scanner.setup();
-  serverComm.setup("http://192.168.77.92:8080/iTrash/");
+  serverComm.setup("http://192.168.77.92:8080/iTrash");
   door.close();
   for(int i = 0; i < 3; ++i) {
       pinMode(32+i*6, OUTPUT);
