@@ -36,15 +36,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         myList = new ArrayList<Product>();
-        Product P = new Product(1,"Pene", "MarcBenedi","http://t2.gstatic.com/images?q=tbn:ANd9GcSy8Wtqo1GECc0buo4gFGM9RXXeP06uTqy8imZaqLnZxH417YrIfLO8","30$");
+
+        ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
+
+        FireBase fb = new FireBase(this, myList);
+        ListView lista1 = (ListView) findViewById(R.id.miLista);
+        fb.realTimeText(adapter, lista1);
+
+/*        Product P = new Product(1,"Pene", "MarcBenedi","http://t2.gstatic.com/images?q=tbn:ANd9GcSy8Wtqo1GECc0buo4gFGM9RXXeP06uTqy8imZaqLnZxH417YrIfLO8","30$");
         int i = 0;
         while (i <=20) {
             myList.add(P);
             i++;
-        }
+        }*/
 
-        ListView lista1 = (ListView) findViewById(R.id.miLista);
-        ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
         lista1.setAdapter(adapter);
 
 
