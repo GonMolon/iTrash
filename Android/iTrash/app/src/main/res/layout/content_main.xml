@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="ADD TO CART"
-        android:id="@+id/button"
+        android:id="@+id/btnadd"
         android:textSize="18dp"
         android:layout_weight=".15"
         android:backgroundTint="#FFC107" />
