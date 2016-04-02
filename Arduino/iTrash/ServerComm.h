@@ -26,7 +26,7 @@ class ServerComm {
     
     void setup(char* url);
     
-    void sendId(char* id);
+    byte sendId(char* id);
 };
 
 #endif
