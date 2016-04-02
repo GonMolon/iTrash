@@ -41,14 +41,6 @@ public class MyAdapter extends ArrayAdapter<Product> {
         precio.setText(single_item.getPrecio());
         String link = single_item.getLink();
 
-        /*ImageButton m = (ImageButton)item.findViewById(R.id.imageButton);
-        m.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.print("HOLA QUE TAL");
-            }
-        });*/
-
         new ImageDownloader(img).execute(link);
 
         return item;

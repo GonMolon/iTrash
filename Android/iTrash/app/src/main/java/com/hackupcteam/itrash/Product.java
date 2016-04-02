@@ -9,15 +9,17 @@ public class Product {
     private String marca;
     private String link;
     private String precio;
+    private String time;
 
     public Product () {};
 
-    public Product (int id, String name, String marca, String link, String precio) {
+    public Product (int id, String name, String marca, String link, String precio,String time) {
         this.id = id;
         this.name = name;
         this.marca = marca;
         this.link = link;
         this.precio = precio;
+        this.time = time;
     }
 
     public int getId() {
@@ -59,4 +61,9 @@ public class Product {
     public void setPrecio(String precio) {
         this.precio = precio;
     }
+    public void setTime(String time) {
+        this.time = time;
+    }
+    public String getTime(){return time;}
+
 }
