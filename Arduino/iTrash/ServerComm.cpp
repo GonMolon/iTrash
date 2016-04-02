@@ -26,7 +26,7 @@ byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* th
 
   Serial.print(F("connecting..."));
 
-  if(client.connect(serverIP, thisPort) == 1) {
+  if(client.connect(serverIP, serverPort) == 1) {
     Serial.println(F("connected"));
 
     // send the header
