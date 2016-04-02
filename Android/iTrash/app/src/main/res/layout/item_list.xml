@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         android:checked="true"
-        android:paddingRight="20dp" />
+        android:paddingRight="20dp"
+        android:clickable="false" />
 
 </LinearLayout>
