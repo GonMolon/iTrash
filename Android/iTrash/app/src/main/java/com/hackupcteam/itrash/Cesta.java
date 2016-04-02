@@ -29,7 +29,7 @@ public class Cesta extends AppCompatActivity {
             }
         });
 
-        myListCart = new ArrayList<Product>();
+        myListCart = new ArrayList<>();
 
         ListAdapter adapter = new MyAdapter(this, R.layout.item_cesta, myListCart);
 

@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         myList = new ArrayList<Product>();
         ProductsAdded = new ArrayList<>();
 
-
-
-
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
         FireBase fb = new FireBase(this, myList);
@@ -69,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         fb.realTimeText(adapter, lista1);
 
         lista1.setAdapter(adapter);
+
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.print("hola");
                 Product p = myList.get(position);
                 CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
                 if(c.isChecked()){
@@ -84,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
                     c.setChecked(true);
                     if (!ProductsAdded.contains(p))ProductsAdded.add(p);
                 }
-
-                System.out.print(ProductsAdded.toString());
             }
         });
 
@@ -111,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.cesta) {
             Intent intent = new Intent(this, Cesta.class);
+
             startActivity(intent);
         }
 
