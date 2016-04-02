@@ -1,3 +1,6 @@
+#ifndef SCANNER
+#define SCANNER
+
 #include <Arduino.h>
 
 class Scanner {
@@ -10,3 +13,5 @@ public:
     bool refresh();
     const char* get_barcode() const;
 };
+
+#endif

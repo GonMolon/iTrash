@@ -1,5 +1,5 @@
-#ifndef SERVER_COMM_
-#define SERVER_COMM_
+#ifndef SERVER_COMM
+#define SERVER_COMM
 
 #include <SPI.h>
 #include <Ethernet.h>
