@@ -14,6 +14,8 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -73,6 +75,15 @@ public class FireBase {
                     map.clear();
 
                 }
+
+                Collections.sort(myList, new Comparator<Product>() {
+                    @Override
+                    public int compare(Product p1, Product p2) {
+                        String s1 = p1.getTime();
+                        String s2 = p2.getTime();
+                        return s2.compareToIgnoreCase(s1);
+                    }
+                });
 
                 listView.setAdapter(adapter);
                 //System.out.print(dataSnapshot.toString()+"\n");
