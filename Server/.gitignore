@@ -1,2 +1,5 @@
-var/cache/
-vendor/
+var/cache/**
+vendor/**
+
+var/cache/*
+vendor/*
