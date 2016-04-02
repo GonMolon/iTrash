@@ -35,20 +35,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final TextView t1 = (TextView)findViewById(R.id.text1);
-        Firebase.setAndroidContext(this);
-        Firebase myFirebaseRef = new Firebase("https://itrashtest.firebaseio.com/test1");
-        myFirebaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                t1.setText((String)dataSnapshot.getValue());
-                //hola que tal
-            }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
     }
 
     @Override
