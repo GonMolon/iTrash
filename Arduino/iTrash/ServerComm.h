@@ -10,7 +10,8 @@ class ServerComm {
     byte MAC[6] = {0x00, 0xAA, 0xBB, 0x22, 0xBA, 0x54};
     char serverName[64];
     char pageName[64];
-    int serverPort = 80;
+    int serverPort = 8080;
+    IPAddress serverIP(192, 168, 77, 92);
     EthernetClient client;
     byte postPage(char* domainBuffer,int thisPort,char* page,char* thisData);
     
