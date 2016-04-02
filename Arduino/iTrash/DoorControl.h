@@ -1,7 +1,7 @@
 #ifndef DOOR_CONTROL_
 #define DOOR_CONTROL_
 
-#include "arduino.h"
+#include <Arduino.h>
 #include <Servo.h>
 
 //Bisagra derecha,    pin 8
