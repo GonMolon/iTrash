@@ -26,7 +26,7 @@ byte ServerComm::postPage(char* domainBuffer, int thisPort, char* page, char* th
 
   Serial.print(F("connecting..."));
 
-  if(client.connect(domainBuffer, thisPort) == 1) {
+  if(client.connect(serverIP, thisPort) == 1) {
     Serial.println(F("connected"));
 
     // send the header
@@ -63,6 +63,5 @@ void ServerComm::setup(char* server) {
 
 bool ServerComm::sendId(const char* id) {
   sprintf(pageName, "/iTrash/%s", id);
-  Serial.println("asdas");
   return postPage(serverName, serverPort, pageName, "");
 }

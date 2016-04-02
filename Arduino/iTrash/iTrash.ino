@@ -7,7 +7,6 @@
 #include <Servo.h>
 
 #define MIN_DIST 16
-#define TRASH_LEVEL_1
 #define TRASH_LEVEL_2 20
 #define TRASH_LEVEL_3 5
 
@@ -22,20 +21,19 @@ bool trash_open = false;
 void setup() {
   Serial.begin(9600);
   scanner.setup();
-  serverComm.setup("192.168.77.92:8080");
+  serverComm.setup("http://192.168.77.92:8080/iTrash/");
   door.close();
-  pinModo(38, OUTPUT);
-  pinMode(39, INPUT);
-  pinMode(44, OUTPUT);
-  pinMode(45, INPUT);
-  pinMode(50, OUTPUT);
-  pinMode(51, INPUT);
-
+  for(int i = 0; i < 3; ++i) {
+      pinMode(32+i*6, OUTPUT);
+      pinMode(32+i*6+1, OUTPUT);
+      digitalWrite(32+i*6, HIGH);
+      digitalWrite(32+i*6+1, LOW);
+  }
 }
 
 void loop() {
   if(scanner.refresh()) {
-    bool post_result = serverComm.sendId(scanner.get_barcode());
+    bool post_result = serverComm.sendId("1");
     if(post_result) {
       Serial.println("Sent");
     } else {
@@ -48,15 +46,24 @@ void loop() {
   if(prox_cerc.read() > MIN_DIST && trash_open) {
       door.close();
   }
-  if(!tras_open) {
+  if(!trash_open) {
       int level = 1;
       int trash = prox_trash.read();
-      if(trash < LEVEL_3) {
+      Serial.println(trash);
+      if(trash < TRASH_LEVEL_3) {
           level = 3;
-      } else if(trash < LEVEL_2) {
+      } else if(trash < TRASH_LEVEL_2) {
           level = 2;
       }
-
+      Serial.print("level: ");
+      Serial.println(level);
+      for(int i = 0; i < 3; ++i) {
+          if(i+1 == level) {
+              digitalWrite(32+i*6, HIGH);
+          } else {
+              digitalWrite(32+i*6, LOW);
+          }
+      }
   }
   delay(50);
 }
