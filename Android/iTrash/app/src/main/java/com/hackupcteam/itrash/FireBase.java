@@ -75,7 +75,7 @@ public class FireBase {
                     public int compare(Product p1, Product p2) {
                         Integer s1 = Integer.parseInt(p1.getTime());
                         Integer s2 = Integer.parseInt(p2.getTime());
-                        System.out.print("hola");
+                        System.out.print("Sorting....");
                         return s1.compareTo(s2);
                     }
                 });

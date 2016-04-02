@@ -9,12 +9,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,12 +69,23 @@ public class MainActivity extends AppCompatActivity {
         fb.realTimeText(adapter, lista1);
 
         lista1.setAdapter(adapter);
-
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
-                
+                System.out.print("hola");
+                Product p = myList.get(position);
+                CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
+                if(c.isChecked()){
+                    c.setChecked(false);
+                    if (ProductsAdded.contains(p))ProductsAdded.remove(p);
+                }
+                else{
+                    System.out.print("Primer cop");
+                    c.setChecked(true);
+                    if (!ProductsAdded.contains(p))ProductsAdded.add(p);
+                }
+
+                System.out.print(ProductsAdded.toString());
             }
         });
 
