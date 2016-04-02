@@ -1,5 +1,6 @@
 package com.hackupcteam.itrash;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -37,18 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         myList = new ArrayList<Product>();
 
+
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
         FireBase fb = new FireBase(this, myList);
         ListView lista1 = (ListView) findViewById(R.id.miLista);
         fb.realTimeText(adapter, lista1);
-
-/*        Product P = new Product(1,"Pene", "MarcBenedi","http://t2.gstatic.com/images?q=tbn:ANd9GcSy8Wtqo1GECc0buo4gFGM9RXXeP06uTqy8imZaqLnZxH417YrIfLO8","30$");
-        int i = 0;
-        while (i <=20) {
-            myList.add(P);
-            i++;
-        }*/
 
         lista1.setAdapter(adapter);
 
@@ -74,29 +69,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.cesta) {
+            Intent intent = new Intent(this, Cesta.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-
-        }
-    }
-
 }
