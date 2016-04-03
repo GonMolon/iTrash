@@ -24,10 +24,10 @@ public class Cesta extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cesta);
-        int precio = getIntent().getIntExtra("price",0);
+        Double precio = getIntent().getDoubleExtra("preu",0.0);
         miListaCesta = (ListView) findViewById(R.id.miListaCesta);
         btnPedido = (Button) findViewById(R.id.btnpedido);
-        btnPedido.setText("Comprar por "+precio);
+        btnPedido.setText(String.format("Buy for %.2f",precio));
         btnPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

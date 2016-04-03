@@ -47,7 +47,7 @@ public class FireBase {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSound(soundUri);
         NotificationManager mn = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mn.notify(1,noti.build());
+        mn.notify(1, noti.build());
         Firebase.setAndroidContext(context);
         myFirebaseRef.orderByChild("time");//En teoria ordena
         myFirebaseRef.addValueEventListener(new ValueEventListener() {
@@ -69,9 +69,9 @@ public class FireBase {
                         map.put("smallImageURL","http://fs01.androidpit.info/a/d5/1c/alydl-ofertas-aldi-lidl-y-dia-d51cb1-w240.png");
                     }
                     if(!map.containsKey("time")){
-                        map.put("time","99999999");
+                        map.put("time","999999999");
                     }
-                    p = new Product(Integer.parseInt(map.get("ean")),map.get("name"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
+                    p = new Product(Long.parseLong(map.get("ean")),map.get("name"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
