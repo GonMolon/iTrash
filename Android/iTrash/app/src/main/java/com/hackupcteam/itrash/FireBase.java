@@ -61,7 +61,7 @@ public class FireBase {
                         map.put(k,name);
                     }
                     if(!map.containsKey("smallImageURL")){
-                        map.put("smallImageURL","http://clickefectivo.com/wp-content/uploads/2015/12/Cortana-1200-80-700x394-240x240.jpg");
+                        map.put("smallImageURL","http://fs01.androidpit.info/a/d5/1c/alydl-ofertas-aldi-lidl-y-dia-d51cb1-w240.png");
                     }
                     if(!map.containsKey("time")){
                         map.put("time","99999999");

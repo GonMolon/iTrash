@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> myList;
 
-    public ArrayList<Integer> ProductsAdded;
+    public ArrayList<String> ProductsAdded;
     private Button btn;
     private ListView lista1;
 
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
                 Log.d("t", "hola que tal");
-                for (Integer inte: ProductsAdded
+                for (String inte: ProductsAdded
                         ) {
-                    Log.d("tag", "" + inte.toString() + "");
+                    Log.d("tag", "" + inte + "");
                 }
                 Log.d("tag",myList.toString());
             }
@@ -70,28 +70,37 @@ public class MainActivity extends AppCompatActivity {
 
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
-        FireBase fb = new FireBase(this, myList);
+        final FireBase fb = new FireBase(this, myList);
         lista1 = (ListView) findViewById(R.id.miLista);
         fb.realTimeText(adapter, lista1);
 
         lista1.setAdapter(adapter);
-        Log.d("CACA2",myList.toString());
+        Log.d("CACA2", myList.toString());
 
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product p = myList.get(position);
-                CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
-                if(c.isChecked()){
+                CheckBox c = (CheckBox) view.findViewById(R.id.checkBox);
+                if (c.isChecked()) {
                     c.setChecked(false);
-                    int pos = ProductsAdded.indexOf(p.getId());
-                    if (ProductsAdded.contains(p.getId()))ProductsAdded.remove(pos);
-                }
-                else{
+                    int pos = ProductsAdded.indexOf(p.getName() + "\n" + p.getPrecio());
+                    if (ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
+                        ProductsAdded.remove(pos);
+                } else {
                     System.out.print("Primer cop");
                     c.setChecked(true);
-                    if (!ProductsAdded.contains(p.getId()))ProductsAdded.add(p.getId());
+                    if (!ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
+                        ProductsAdded.add(p.getName() + "\n" + p.getPrecio());
                 }
+            }
+        });
+        lista1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(view.getContext(),"item deleted", Toast.LENGTH_LONG).show();
+                fb.removeElement(myList.get(position).getId()+"");
+                return false;
             }
         });
 
@@ -117,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.cesta) {
             Intent intent = new Intent(this, Cesta.class);
-            intent.putIntegerArrayListExtra("lista",ProductsAdded);
+            intent.putStringArrayListExtra("lista", ProductsAdded);
             startActivity(intent);
         }
 
