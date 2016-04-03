@@ -55,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
-                Log.d("t", "hola que tal");
-                for (String inte: ProductsAdded
-                        ) {
-                    Log.d("tag", "" + inte + "");
-                }
-                Log.d("tag",myList.toString());
+                Intent intent = new Intent(MainActivity.this,Cesta.class);
+                intent.putStringArrayListExtra("lista",ProductsAdded);
+                intent.putExtra("preu",precio);
+                startActivity(intent);
+
             }
         });
 
@@ -88,21 +86,21 @@ public class MainActivity extends AppCompatActivity {
                     int pos = ProductsAdded.indexOf(p.getName() + "\n" + p.getPrecio());
                     if (ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
                         ProductsAdded.remove(pos);
-                        precio = precio - Double.parseDouble(p.getPrecio());
+                    precio = precio - Double.parseDouble(p.getPrecio());
                 } else {
                     System.out.print("Primer cop");
                     c.setChecked(true);
                     if (!ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
                         ProductsAdded.add(p.getName() + "\n" + p.getPrecio());
-                        precio = precio + Double.parseDouble(p.getPrecio());
+                    precio = precio + Double.parseDouble(p.getPrecio());
                 }
             }
         });
         lista1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(),"item deleted", Toast.LENGTH_LONG).show();
-                fb.removeElement(myList.get(position).getId()+"");
+                Toast.makeText(view.getContext(), "item deleted", Toast.LENGTH_LONG).show();
+                fb.removeElement(myList.get(position).getId() + "");
                 return false;
             }
         });
@@ -124,12 +122,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.cesta) {
-            Intent intent = new Intent(this, Cesta.class);
-            intent.putStringArrayListExtra("lista", ProductsAdded);
-            intent.putExtra("preu",precio);
-            startActivity(intent);
-        }
 
         return super.onOptionsItemSelected(item);
     }
