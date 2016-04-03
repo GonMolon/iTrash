@@ -24,8 +24,10 @@ public class Cesta extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cesta);
+        int precio = getIntent().getIntExtra("price",0);
         miListaCesta = (ListView) findViewById(R.id.miListaCesta);
         btnPedido = (Button) findViewById(R.id.btnpedido);
+        btnPedido.setText("Comprar por "+precio);
         btnPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,14 +37,7 @@ public class Cesta extends AppCompatActivity {
         myListCart = getIntent().getStringArrayListExtra("lista");
         Log.d("TAG",""+myListCart.toString()+"");
 
-        //ArrayList<Product> carrito = new ArrayList<>();
-        //ListAdapter adapter = new MyAdapter2(this, R.layout.item_cesta, carrito);
         ListView l1 = (ListView)findViewById(R.id.miListaCesta);
-
-
-        //FireBase fb = new FireBase(this,carrito);
-        //fb.realTimeText(adapter,l1);
-
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
