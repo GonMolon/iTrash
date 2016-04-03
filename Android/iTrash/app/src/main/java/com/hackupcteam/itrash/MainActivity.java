@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,14 +31,16 @@ import com.firebase.client.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> myList;
 
-    public ArrayList<Product> ProductsAdded;
+    public ArrayList<String> ProductsAdded;
     private Button btn;
     private ListView lista1;
+    private Double precio = 0.0;
 
 
     @Override
@@ -52,16 +55,21 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,Cesta.class);
+                intent.putStringArrayListExtra("lista",ProductsAdded);
+                intent.putExtra("preu",precio);
+                startActivity(intent);
+
             }
         });
 
         myList = new ArrayList<Product>();
         ProductsAdded = new ArrayList<>();
+        ProductsAdded.clear();
 
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
-        FireBase fb = new FireBase(this, myList);
+        final FireBase fb = new FireBase(this, myList);
         lista1 = (ListView) findViewById(R.id.miLista);
         fb.realTimeText(adapter, lista1);
 
@@ -71,16 +79,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product p = myList.get(position);
-                CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
-                if(c.isChecked()){
+                CheckBox c = (CheckBox) view.findViewById(R.id.checkBox);
+                if (c.isChecked()) {
                     c.setChecked(false);
-                    if (ProductsAdded.contains(p))ProductsAdded.remove(p);
-                }
-                else{
+                    int pos = ProductsAdded.indexOf(p.getName() + "\n" + p.getPrecio());
+                    if (ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
+                        ProductsAdded.remove(pos);
+                    precio = precio - Double.parseDouble(p.getPrecio());
+                } else {
                     System.out.print("Primer cop");
                     c.setChecked(true);
-                    if (!ProductsAdded.contains(p))ProductsAdded.add(p);
+                    if (!ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
+                        ProductsAdded.add(p.getName() + "\n" + p.getPrecio());
+                    precio = precio + Double.parseDouble(p.getPrecio());
                 }
+            }
+        });
+        lista1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(view.getContext(), "item deleted", Toast.LENGTH_LONG).show();
+                fb.removeElement(myList.get(position).getId() + "");
+                return false;
             }
         });
 
@@ -101,14 +121,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.cesta) {
-            Intent intent = new Intent(this, Cesta.class);
-
-            startActivity(intent);
-        }
 
         return super.onOptionsItemSelected(item);
     }

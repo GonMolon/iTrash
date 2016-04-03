@@ -4,7 +4,7 @@ package com.hackupcteam.itrash;
  * Created by Marc on 02/04/2016.
  */
 public class Product {
-    private int id;
+    private Long id;
     private String name;
     private String marca;
     private String link;
@@ -13,7 +13,7 @@ public class Product {
 
     public Product () {};
 
-    public Product (int id, String name, String marca, String link, String precio,String time) {
+    public Product (Long id, String name, String marca, String link, String precio,String time) {
         this.id = id;
         this.name = name;
         this.marca = marca;
@@ -22,11 +22,11 @@ public class Product {
         this.time = time;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
