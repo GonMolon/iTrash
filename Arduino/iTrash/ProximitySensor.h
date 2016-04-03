@@ -9,7 +9,7 @@ private:
     int echo_pin;
 public:
     ProximitySensor(int trigger_pin, int echo_pin);
-    int read() const;
+    long read() const;
 };
 
 #endif
