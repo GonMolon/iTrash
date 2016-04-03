@@ -1,16 +1,12 @@
 package com.hackupcteam.itrash;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -20,13 +16,10 @@ import com.firebase.client.Transaction;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * Created by Marc on 02/04/2016.
