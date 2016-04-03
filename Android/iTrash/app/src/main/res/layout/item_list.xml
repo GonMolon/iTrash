@@ -9,6 +9,13 @@
     android:padding="3dp"
     android:descendantFocusability="blocksDescendants">
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        android:paddingRight="20dp"
+        android:clickable="false" />
+
     <FrameLayout
         android:layout_width="60dp"
         android:layout_height="wrap_content"
@@ -64,11 +71,6 @@
         android:layout_marginRight="15dp"
         android:background="@mipmap/discard"/>
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
-        android:paddingRight="20dp"
-        android:clickable="false" />
+
 
 </LinearLayout>
