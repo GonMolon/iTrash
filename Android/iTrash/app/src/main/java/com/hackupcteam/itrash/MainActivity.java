@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> myList;
 
-    public ArrayList<Product> ProductsAdded;
+    public static ArrayList<Product> ProductsAdded;
     private Button btn;
     private ListView lista1;
 

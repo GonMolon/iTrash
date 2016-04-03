@@ -14,12 +14,15 @@ public class Cesta extends AppCompatActivity {
 
     private ListView miListaCesta;
     private Button btnPedido;
-    private ArrayList<Product> myListCart;
+    private ArrayList<Product> ProductosCesta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cesta);
+
+        ProductosCesta = MainActivity.ProductsAdded;
+
         miListaCesta = (ListView) findViewById(R.id.miListaCesta);
         btnPedido = (Button) findViewById(R.id.btnpedido);
         btnPedido.setOnClickListener(new View.OnClickListener() {
@@ -29,9 +32,11 @@ public class Cesta extends AppCompatActivity {
             }
         });
 
-        myListCart = new ArrayList<Product>();
 
-        ListAdapter adapter = new MyAdapter(this, R.layout.item_cesta, myListCart);
+        ListAdapter adapter = new MyAdapterCesta(this, R.layout.item_cesta,ProductosCesta);
+
+        miListaCesta.setAdapter(adapter);
+
 
 
 
