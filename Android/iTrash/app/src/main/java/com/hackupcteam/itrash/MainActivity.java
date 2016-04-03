@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> myList;
 
-    public ArrayList<Product> ProductsAdded;
+    public ArrayList<Integer> ProductsAdded;
     private Button btn;
     private ListView lista1;
 
@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
                 if(c.isChecked()){
                     c.setChecked(false);
-                    if (ProductsAdded.contains(p))ProductsAdded.remove(p);
+                    if (ProductsAdded.contains(p.getId()))ProductsAdded.remove(p.getId());
                 }
                 else{
                     System.out.print("Primer cop");
                     c.setChecked(true);
-                    if (!ProductsAdded.contains(p))ProductsAdded.add(p);
+                    if (!ProductsAdded.contains(p.getId()))ProductsAdded.add(p.getId());
                 }
             }
         });
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.cesta) {
             Intent intent = new Intent(this, Cesta.class);
-
+            intent.putIntegerArrayListExtra("lista",ProductsAdded);
             startActivity(intent);
         }
 

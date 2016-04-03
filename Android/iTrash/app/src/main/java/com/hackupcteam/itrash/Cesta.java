@@ -14,7 +14,7 @@ public class Cesta extends AppCompatActivity {
 
     private ListView miListaCesta;
     private Button btnPedido;
-    private ArrayList<Product> myListCart;
+    private ArrayList<Integer> myListCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,9 @@ public class Cesta extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "HACER PEDIDO", Toast.LENGTH_SHORT).show();
             }
         });
+        myListCart = getIntent().getIntegerArrayListExtra("lista");
 
-        myListCart = new ArrayList<>();
-
-        ListAdapter adapter = new MyAdapter(this, R.layout.item_cesta, myListCart);
+        //ListAdapter adapter = new MyAdapter(this, R.layout.item_cesta, myListCart);
 
 
 
