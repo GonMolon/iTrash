@@ -41,8 +41,11 @@ public class Cesta extends AppCompatActivity {
 
         FireBase fb = new FireBase(this,carrito);
         fb.realTimeText(adapter,l1);
+
+
+
         l1.setAdapter(adapter);
-        Log.d("CACA",""+carrito.toString());
+        Log.d("CACA", "" + carrito.toString());
 
         for (Integer inte: myListCart
                 ) {

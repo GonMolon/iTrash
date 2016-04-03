@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("t", "hola que tal");
                 for (Integer inte: ProductsAdded
                         ) {
-                    Log.d("tag",""+inte.toString()+"");
+                    Log.d("tag", "" + inte.toString() + "");
                 }
                 Log.d("tag",myList.toString());
             }
