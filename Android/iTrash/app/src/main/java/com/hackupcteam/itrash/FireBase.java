@@ -71,7 +71,7 @@ public class FireBase {
                     if(!map.containsKey("time")){
                         map.put("time","999999999");
                     }
-                    p = new Product(Long.parseLong(map.get("ean")),map.get("name"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
+                    p = new Product(Long.parseLong(map.get("ean")),map.get("name"),map.get("ean"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
