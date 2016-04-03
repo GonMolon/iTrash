@@ -35,12 +35,14 @@ public class Cesta extends AppCompatActivity {
         Log.d("TAG",""+myListCart.toString()+"");
 
         ArrayList<Product> carrito = new ArrayList<>();
-        ListAdapter adapter = new MyAdapter(this, R.layout.item_cesta, carrito);
+        ListAdapter adapter = new MyAdapter2(this, R.layout.item_cesta, carrito);
         ListView l1 = (ListView)findViewById(R.id.miListaCesta);
 
 
-        //FireBase fb = new FireBase(this,carrito);
-        //fb.realTimeText(adapter,l1);
+        FireBase fb = new FireBase(this,carrito);
+        fb.realTimeText(adapter,l1);
+        l1.setAdapter(adapter);
+
         Firebase.setAndroidContext(this);
         Firebase myFirebas = new Firebase("https://itrashtest.firebaseio.com/");
         for (Integer inte: myListCart

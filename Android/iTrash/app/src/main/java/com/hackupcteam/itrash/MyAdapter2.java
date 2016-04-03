@@ -1,5 +1,10 @@
 package com.hackupcteam.itrash;
 
+/**
+ * Created by Marc on 03/04/2016.
+ */
+
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,9 +23,9 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MyAdapter extends ArrayAdapter<Product> {
+public class MyAdapter2 extends ArrayAdapter<Product> {
 
-    public MyAdapter(Context context, int resource, ArrayList<Product> items) {
+    public MyAdapter2(Context context, int resource, ArrayList<Product> items) {
         //Resource is item_list.xml
         super(context, resource, items);
     }
@@ -28,7 +33,7 @@ public class MyAdapter extends ArrayAdapter<Product> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.item_list, parent, false);
+        View item = inflater.inflate(R.layout.item_cesta, parent, false);
 
         Product single_item = getItem(position);
 
