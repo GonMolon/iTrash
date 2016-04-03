@@ -42,9 +42,8 @@ public class Cesta extends AppCompatActivity {
         FireBase fb = new FireBase(this,carrito);
         fb.realTimeText(adapter,l1);
         l1.setAdapter(adapter);
+        Log.d("CACA",""+carrito.toString());
 
-        Firebase.setAndroidContext(this);
-        Firebase myFirebas = new Firebase("https://itrashtest.firebaseio.com/");
         for (Integer inte: myListCart
                 ) {
             Log.d("tag", "" + inte.toString() + "");
