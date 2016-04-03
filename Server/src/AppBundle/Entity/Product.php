@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=32)
      * @ORM\Id
      */
     protected $ean;
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=256)
      */
     protected $name;
     /**

@@ -100,16 +100,38 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // app_api_postproduct
-        if (0 === strpos($pathinfo, '/iTrash') && preg_match('#^/iTrash/(?P<ean>[^/]++)/$#s', $pathinfo, $matches)) {
-            if ($this->context->getMethod() != 'POST') {
-                $allow[] = 'POST';
-                goto not_app_api_postproduct;
-            }
+        if (0 === strpos($pathinfo, '/iTrash')) {
+            // app_api_getproduct
+            if (preg_match('#^/iTrash/(?P<ean>[^/]++)/?$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_app_api_getproduct;
+                }
 
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_api_postproduct')), array (  '_controller' => 'AppBundle\\Controller\\ApiController::postProductAction',));
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'app_api_getproduct');
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_api_getproduct')), array (  '_controller' => 'AppBundle\\Controller\\ApiController::getProductAction',));
+            }
+            not_app_api_getproduct:
+
+            // app_api_getmyshit
+            if (rtrim($pathinfo, '/') === '/iTrash/allMyShit') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_app_api_getmyshit;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'app_api_getmyshit');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\ApiController::getMyShitAction',  '_route' => 'app_api_getmyshit',);
+            }
+            not_app_api_getmyshit:
+
         }
-        not_app_api_postproduct:
 
         // homepage
         if (rtrim($pathinfo, '/') === '') {

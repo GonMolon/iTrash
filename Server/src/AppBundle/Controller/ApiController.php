@@ -19,11 +19,11 @@ class ApiController extends Controller {
 
 	/**
 	 * @Route("/iTrash/{ean}/")
-	 * @Method("POST")/
+	 * @Method("GET")
 	 */
-	public function postProductAction(Request $request, $ean) {
+	public function getProductAction(Request $request, $ean) {
 
-		// REPEAT
+		//$this->makeMyDatabaseBeHappy();
 
 		$em = $this->getDoctrine()->getManager();
     	$scanned = $em->getRepository('AppBundle:Scanned')
@@ -52,25 +52,55 @@ class ApiController extends Controller {
     	$product = $em->getRepository('AppBundle:Product')
     		->findOneByEan($ean);
 
-    	$timesInBucket = $firebase->get($ean . '/timesThrown/');
+
+    	$exists = $firebase->get($ean . '/');
+    	$timesInBucket = $firebase->get($ean . '/timesThrown');
     	$lidlStock = $firebase->get($ean . '/stockValue');
-    	if ($exists != 'null' && $timesThrown < $lidlStock) {
-    		$firebase->update($ean . '/timesThrown/', $timesThrown + 1);
-    	}
-    	else if ($timesThrown < $lidlStock)
-    		return new JsonResponse(json_encode("Times Thrown >= Lidl Stock"));
-    	}
-    	else {
-    		$firebase->set($ean . '/', $this->productToArray($product););
+
+    	$responseMessage = "Product was correctly added, EAN: " . $ean;
+
+    	if ($exists != 'null' && $timesInBucket < $lidlStock) {
+    		$timesInBucket = $timesInBucket + 1;
+    		$path = $ean . '/timesThrown/';
+    		$firebase->set($path, $timesInBucket);
+
+    		$newTime = round(microtime(true) * 1000);
+    		$path = $ean . '/timeInMillis/';
+    		$firebase->set($path, $newTime);
+
+    		$responseMessage = "Quantity was incremented and time uploaded: " . $ean;
+
+    	} else if ($exists != 'null') {
+    		$responseMessage = "Error: More than the limit";
+
+    	} else {
+    		if ($product) {
+				$productArray = $this->productToArray($product);
+	    		$firebase->set($ean, $productArray);
+    		}
+    		else {
+    			$firebase->set($ean . '/ean/', $ean);
+    			$firebase->set($ean . '/timesThrown/', 1);
+    			$newTime = round(microtime(true) * 1000);
+	    		$firebase->set($ean . '/timeInMillis/', $newTime);
+    			$firebase->set($ean . '/stockValue/', 42);
+    		}
     	}
 
-		$productStringJson = $this->productToArray($product);
-		return new JsonResponse(json_encode($productStringJson));
+		return new Response($responseMessage);
+
+	}
+
+	/**
+	 * @Route("/iTrash/allMyShit/")
+	 * @Method("GET")
+	 */
+	public function getMyShitAction(Request $request) {
 
 	}
 
 	function productToArray(Product $product) {
-		$res = array (
+		return array (
 			'ean' => $product->getEan() ,
 			'name' => $product->getName() ,
 			'description' => $product->getDescription() ,
@@ -84,8 +114,36 @@ class ApiController extends Controller {
 			'daysForDelivery' => $product->getDaysForDelivery() ,
 			'timesThrown' => 1 ,
 			'stockValue' => $product->getStockValue()
-			);
-		return $res;
+		);
 	}
+
+
+	function makeMyDatabaseBeHappy() {
+		$array = json_decode('');
+		$array = $array->Campaign->ContainerItems;
+		for ($i = 0; $i < count($array); $i++) {
+
+			$p = new Product();
+			$aux = $array[$i]->Product;
+
+			$p->setEan($aux->ean);
+			$p->setName($aux->productLanguageSet->ProductLanguageSet->title);
+			$p->setDescription($aux->productLanguageSet->ProductLanguageSet->subtitle);
+			$p->setPrice($aux->price);
+			$p->setSmallImageURL($aux->mainImage->Image->smallUrl);
+			$p->setMediumImageURL($aux->mainImage->Image->mediumUrl);
+			$p->setLargeImageURL($aux->mainImage->Image->largeUrl);
+			$p->setLidlURL($aux->shareUrl);
+			$p->setAvailableOnline($aux->availableOnline);
+			$p->setDaysForDelivery($aux->daysForDelivery);
+			$p->setMaxOrderQuantity($aux->maxOrderQuantity);
+			$p->setStockValue($aux->stock->stockValue);
+
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($p);
+			$em->flush();
+		}
+	}
+
 
 }
