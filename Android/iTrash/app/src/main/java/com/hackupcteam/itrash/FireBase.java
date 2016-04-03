@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.MutableData;
+import com.firebase.client.Transaction;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
@@ -87,6 +89,19 @@ public class FireBase {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
+            }
+        });
+    }
+    public void removeElement(String s){
+        Firebase.setAndroidContext(context);
+        myFirebaseRef.child(s).runTransaction(new Transaction.Handler() {
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                mutableData.setValue(null); // This removes the node.
+                return Transaction.success(mutableData);
+            }
+
+            public void onComplete(FirebaseError error, boolean b, DataSnapshot data) {
+                // Handle completion
             }
         });
     }

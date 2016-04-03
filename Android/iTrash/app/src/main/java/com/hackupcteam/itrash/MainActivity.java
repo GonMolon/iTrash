@@ -31,6 +31,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,11 +55,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Hello",Toast.LENGTH_SHORT).show();
+                Log.d("t", "hola que tal");
+                for (Integer inte: ProductsAdded
+                        ) {
+                    Log.d("tag",""+inte.toString()+"");
+                }
+                Log.d("tag",myList.toString());
             }
         });
 
         myList = new ArrayList<Product>();
         ProductsAdded = new ArrayList<>();
+        ProductsAdded.clear();
 
         ListAdapter adapter = new MyAdapter(this, R.layout.item_list, myList);
 
@@ -75,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 CheckBox c = (CheckBox)view.findViewById(R.id.checkBox);
                 if(c.isChecked()){
                     c.setChecked(false);
-                    if (ProductsAdded.contains(p.getId()))ProductsAdded.remove(p.getId());
+                    int pos = ProductsAdded.indexOf(p.getId());
+                    if (ProductsAdded.contains(p.getId()))ProductsAdded.remove(pos);
                 }
                 else{
                     System.out.print("Primer cop");
