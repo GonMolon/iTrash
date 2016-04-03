@@ -1,8 +1,13 @@
 package com.hackupcteam.itrash;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +48,13 @@ public class FireBase {
     }
 
     public void realTimeText(final ListAdapter adapter, final ListView listView){
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder noti = new NotificationCompat.Builder(context);
+        noti.setContentTitle("New trash!")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSound(soundUri);
+        NotificationManager mn = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mn.notify(1,noti.build());
         Firebase.setAndroidContext(context);
         myFirebaseRef.orderByChild("time");//En teoria ordena
         myFirebaseRef.addValueEventListener(new ValueEventListener() {
@@ -66,7 +78,7 @@ public class FireBase {
                     if(!map.containsKey("time")){
                         map.put("time","99999999");
                     }
-                    p = new Product(Integer.parseInt(map.get("ean")),map.get("ean"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
+                    p = new Product(Integer.parseInt(map.get("ean")),map.get("name"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
