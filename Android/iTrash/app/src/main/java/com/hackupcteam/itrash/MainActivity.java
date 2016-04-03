@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         fb.realTimeText(adapter, lista1);
 
         lista1.setAdapter(adapter);
-        Log.d("CACA2", myList.toString());
 
         lista1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
