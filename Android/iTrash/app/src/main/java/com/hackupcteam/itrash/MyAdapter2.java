@@ -1,26 +1,31 @@
 package com.hackupcteam.itrash;
 
+/**
+ * Created by Marc on 03/04/2016.
+ */
+
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
-/**
- * Created by Hermes on 02/04/2016.
- */
-public class MyAdapterCesta extends ArrayAdapter<Product> {
+public class MyAdapter2 extends ArrayAdapter<Product> {
 
-    public MyAdapterCesta(Context context, int resource, ArrayList<Product> items) {
+    public MyAdapter2(Context context, int resource, ArrayList<Product> items) {
         //Resource is item_list.xml
         super(context, resource, items);
     }
@@ -42,8 +47,12 @@ public class MyAdapterCesta extends ArrayAdapter<Product> {
         precio.setText(single_item.getPrecio());
         String link = single_item.getLink();
 
+        new ImageDownloader(img).execute(link);
+
         return item;
     }
+
+
     class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
@@ -68,5 +77,4 @@ public class MyAdapterCesta extends ArrayAdapter<Product> {
         }
     }
 }
-
 

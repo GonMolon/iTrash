@@ -6,11 +6,11 @@ DoorControl::DoorControl() {
 }
 
 void DoorControl::open() {
-  left.write(170);
-  right.write(0);
+  //left.write(170);
+  //right.write(0);
 }
 
 void DoorControl::close() {
-  left.write(0);
-  right.write(170);
+  //left.write(0);
+  //right.write(170);
 }

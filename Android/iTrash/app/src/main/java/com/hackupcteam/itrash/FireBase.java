@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.MutableData;
+import com.firebase.client.Transaction;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
@@ -59,12 +61,12 @@ public class FireBase {
                         map.put(k,name);
                     }
                     if(!map.containsKey("smallImageURL")){
-                        map.put("smallImageURL","http://clickefectivo.com/wp-content/uploads/2015/12/Cortana-1200-80-700x394-240x240.jpg");
+                        map.put("smallImageURL","http://fs01.androidpit.info/a/d5/1c/alydl-ofertas-aldi-lidl-y-dia-d51cb1-w240.png");
                     }
                     if(!map.containsKey("time")){
                         map.put("time","99999999");
                     }
-                    p = new Product(Integer.parseInt(map.get("ean")),map.get("name"),map.get("ean"),map.get("smallImageURL"),map.get("time"),map.get("time"));
+                    p = new Product(Integer.parseInt(map.get("ean")),map.get("ean"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
@@ -75,7 +77,7 @@ public class FireBase {
                     public int compare(Product p1, Product p2) {
                         Integer s1 = Integer.parseInt(p1.getTime());
                         Integer s2 = Integer.parseInt(p2.getTime());
-                        System.out.print("hola");
+                        System.out.print("Sorting....");
                         return s1.compareTo(s2);
                     }
                 });
@@ -87,6 +89,19 @@ public class FireBase {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
+            }
+        });
+    }
+    public void removeElement(String s){
+        Firebase.setAndroidContext(context);
+        myFirebaseRef.child(s).runTransaction(new Transaction.Handler() {
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                mutableData.setValue(null); // This removes the node.
+                return Transaction.success(mutableData);
+            }
+
+            public void onComplete(FirebaseError error, boolean b, DataSnapshot data) {
+                // Handle completion
             }
         });
     }

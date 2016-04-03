@@ -12,10 +12,11 @@ void ServerComm::setup() {
 bool ServerComm::sendId(const char* id) {
   client.stop();
   char buffer[50];
-  sprintf(buffer, "/iTrash/%s/", id);
+  sprintf(buffer, "GET /iTrash/%s/ HTTP/1.0", id);
   if(client.connect(server, serverPort)) {
     Serial.println("connected");
-    client.println("GET /iTrash/1/ HTTP/1.0");
+    client.println(buffer);
+    Serial.println(buffer);
     client.println("Connection: close");
     client.println();
     return true;
