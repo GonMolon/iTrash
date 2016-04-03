@@ -1,5 +1,7 @@
 package com.hackupcteam.itrash;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +29,14 @@ public class Cesta extends AppCompatActivity {
         Double precio = getIntent().getDoubleExtra("preu",0.0);
         miListaCesta = (ListView) findViewById(R.id.miListaCesta);
         btnPedido = (Button) findViewById(R.id.btnpedido);
-        btnPedido.setText(String.format("Buy for %.2f",precio));
+        btnPedido.setText(String.format("Buy on lidl.de for %.2f", precio));
         btnPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "HACER PEDIDO", Toast.LENGTH_SHORT).show();
+                String url = "http://lidl.de";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
         myListCart = getIntent().getStringArrayListExtra("lista");
