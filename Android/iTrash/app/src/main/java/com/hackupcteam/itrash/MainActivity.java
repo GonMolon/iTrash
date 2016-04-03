@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> ProductsAdded;
     private Button btn;
     private ListView lista1;
+    private Double precio = 0.0;
 
 
     @Override
@@ -87,11 +88,13 @@ public class MainActivity extends AppCompatActivity {
                     int pos = ProductsAdded.indexOf(p.getName() + "\n" + p.getPrecio());
                     if (ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
                         ProductsAdded.remove(pos);
+                        precio = precio - Double.parseDouble(p.getPrecio());
                 } else {
                     System.out.print("Primer cop");
                     c.setChecked(true);
                     if (!ProductsAdded.contains(p.getName() + "\n" + p.getPrecio()))
                         ProductsAdded.add(p.getName() + "\n" + p.getPrecio());
+                        precio = precio + Double.parseDouble(p.getPrecio());
                 }
             }
         });
@@ -124,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.cesta) {
             Intent intent = new Intent(this, Cesta.class);
             intent.putStringArrayListExtra("lista", ProductsAdded);
+            intent.putExtra("preu",precio);
             startActivity(intent);
         }
 

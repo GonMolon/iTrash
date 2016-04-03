@@ -1,11 +1,12 @@
 package com.hackupcteam.itrash;
 
+import android.app.NotificationManager;
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -15,13 +16,10 @@ import com.firebase.client.Transaction;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * Created by Marc on 02/04/2016.
@@ -43,6 +41,13 @@ public class FireBase {
     }
 
     public void realTimeText(final ListAdapter adapter, final ListView listView){
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder noti = new NotificationCompat.Builder(context);
+        noti.setContentTitle("New trash!")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSound(soundUri);
+        NotificationManager mn = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mn.notify(1, noti.build());
         Firebase.setAndroidContext(context);
         myFirebaseRef.orderByChild("time");//En teoria ordena
         myFirebaseRef.addValueEventListener(new ValueEventListener() {
@@ -64,9 +69,9 @@ public class FireBase {
                         map.put("smallImageURL","http://fs01.androidpit.info/a/d5/1c/alydl-ofertas-aldi-lidl-y-dia-d51cb1-w240.png");
                     }
                     if(!map.containsKey("time")){
-                        map.put("time","99999999");
+                        map.put("time","999999999");
                     }
-                    p = new Product(Integer.parseInt(map.get("ean")),map.get("ean"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
+                    p = new Product(Long.parseLong(map.get("ean")),map.get("name"),map.get("description"),map.get("smallImageURL"),map.get("price"),map.get("time"));
                     myList.add(p);
                     map.clear();
 
